@@ -10,7 +10,8 @@
     <span class="content">
       Topics: 
       <%micropost.topics.each {|topic|%>
-        <a href="#"><%=topic.name%></a>&nbsp;
+        <%#= link_to topic.name, show_by_topic_microposts_path(topic: topic.name) %>
+        <%= link_to topic.name, "/microposts/show_by_topic/#{topic.name}" %>&nbsp;
       <%}%>
     </span>
   <%end%>

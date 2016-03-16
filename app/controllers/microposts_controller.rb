@@ -19,6 +19,11 @@ class MicropostsController < ApplicationController
     redirect_to request.referrer || root_url
   end
   
+  def show_by_topic
+    topic = Topic.find_by(name: params[:topic])
+    @posts_by_topic = topic.microposts.paginate(page: params[:page]) if topic.present?
+  end
+
   private
     
     def micropost_params
