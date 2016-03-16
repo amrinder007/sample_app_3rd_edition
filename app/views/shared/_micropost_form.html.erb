@@ -3,12 +3,15 @@
   <div class="field">
     <%= f.text_area :content, placeholder: "Compose new micropost..." %>
   </div>
-  <div class="field">
-    <%= f.check_box :is_sticky, style: "float: left;width: 20px;"%><%= f.label :is_sticky, "Make post sticky (sticky post always remain on top)", style: "float: left;font-size: 13px;"%>
-  </div>
   <span class="picture">
     <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
   </span>
+  <div class="field">
+    <%= text_field_tag :micropost_topic_list, "", name: "micropost[topic_list]", placeholder: "Enter comma seperated topics..." %>
+  </div>
+  <div class="field">
+    <%= f.check_box :is_sticky, style: "float: left;width: 20px;"%><%= f.label :is_sticky, "Make post sticky (sticky post always remain on top)", style: "float: left;font-size: 13px;"%>
+  </div>
   <%= f.submit "Post", class: "btn btn-primary" %>
 <% end %>
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160316141645) do
+ActiveRecord::Schema.define(version: 20160316183215) do
 
   create_table "microposts", force: :cascade do |t|
     t.text     "content",    limit: 65535
@@ -25,6 +25,17 @@ ActiveRecord::Schema.define(version: 20160316141645) do
   add_index "microposts", ["user_id", "created_at"], name: "index_microposts_on_user_id_and_created_at", using: :btree
   add_index "microposts", ["user_id"], name: "index_microposts_on_user_id", using: :btree
 
+  create_table "pt_relationships", force: :cascade do |t|
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "micropost_id", limit: 4
+    t.integer  "topic_id",     limit: 4
+  end
+
+  add_index "pt_relationships", ["micropost_id", "topic_id"], name: "index_pt_relationships_on_micropost_id_and_topic_id", unique: true, using: :btree
+  add_index "pt_relationships", ["micropost_id"], name: "index_pt_relationships_on_micropost_id", using: :btree
+  add_index "pt_relationships", ["topic_id"], name: "index_pt_relationships_on_topic_id", using: :btree
+
   create_table "relationships", force: :cascade do |t|
     t.integer  "follower_id", limit: 4
     t.integer  "followed_id", limit: 4
@@ -35,6 +46,14 @@ ActiveRecord::Schema.define(version: 20160316141645) do
   add_index "relationships", ["followed_id"], name: "index_relationships_on_followed_id", using: :btree
   add_index "relationships", ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true, using: :btree
   add_index "relationships", ["follower_id"], name: "index_relationships_on_follower_id", using: :btree
+
+  create_table "topics", force: :cascade do |t|
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "name",       limit: 255
+  end
+
+  add_index "topics", ["name"], name: "index_topics_on_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",              limit: 255
@@ -54,4 +73,6 @@ ActiveRecord::Schema.define(version: 20160316141645) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   add_foreign_key "microposts", "users"
+  add_foreign_key "pt_relationships", "microposts"
+  add_foreign_key "pt_relationships", "topics"
 end
