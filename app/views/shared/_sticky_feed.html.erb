@@ -1,0 +1,6 @@
+<% if @sticky_feed_items.any? %>
+  <ol class="microposts">
+    <%= render @sticky_feed_items %>
+  </ol>
+  <%#= will_paginate @sticky_feed_items %>
+<% end %>

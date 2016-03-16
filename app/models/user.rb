@@ -81,8 +81,13 @@ class User < ActiveRecord::Base
   def feed
     following_ids_subselect = "SELECT followed_id FROM relationships
                                WHERE  follower_id = :user_id"
-    Micropost.where("user_id IN (#{following_ids_subselect})
-                     OR user_id = :user_id", user_id: id)
+    Micropost.where("(user_id IN (#{following_ids_subselect}))
+                     OR (user_id = :user_id AND is_sticky=:is_sticky)", user_id: id, is_sticky: false)
+  end
+
+  # Returns a user's sticky posts.
+  def sticky_feed
+    Micropost.where(user_id: id, is_sticky: true)
   end
 
   # Follows a user.

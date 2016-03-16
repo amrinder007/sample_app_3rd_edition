@@ -1,6 +1,7 @@
 <li id="micropost-<%= micropost.id %>">
   <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
   <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
+  <%if micropost.is_sticky && current_user.id == micropost.user.id%><span class="user"><i>(It's a sticky post. Will always remain on top)</i></span><%end%>
   <span class="content">
     <%= micropost.content %>
     <%= image_tag micropost.picture.url if micropost.picture? %>
