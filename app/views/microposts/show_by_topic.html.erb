@@ -1,0 +1,11 @@
+<div class="row">
+	<div class="col-md-12">
+	  <h3>Microposts by topic "<%=params[:topic]%>"</h3>
+	  <% if !@posts_by_topic.nil? && @posts_by_topic.any? %>
+		  <ol class="microposts">
+		    <%= render @posts_by_topic %>
+		  </ol>
+		  <%= will_paginate @posts_by_topic %>
+		<% end %>
+	</div>
+</div>
