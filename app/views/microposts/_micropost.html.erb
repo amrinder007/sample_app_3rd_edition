@@ -7,11 +7,11 @@
     <%= image_tag micropost.picture.url if micropost.picture? %>
   </span>
   <%if micropost.topics.any?%>
-    <span class="content">
-      Topics: 
+    <span class="content topic_link_wrapper">
+      <i><strong>Topics: </strong></i>
       <%micropost.topics.each {|topic|%>
         <%#= link_to topic.name, show_by_topic_microposts_path(topic: topic.name) %>
-        <%= link_to topic.name, "/microposts/show_by_topic/#{topic.name}" %>&nbsp;
+        <%= link_to topic.name, "/microposts/show_by_topic/#{topic.name}", class: "topic_link" %>&nbsp;
       <%}%>
     </span>
   <%end%>
